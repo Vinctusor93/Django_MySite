@@ -1,0 +1,36 @@
+{% load staticfiles %}
+<html>
+<head>
+  <link rel ="stylesheet" href ="{% static 'css/post_details.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Hanalei+Fill" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+</head>
+<body id="body">
+  <div id="header">
+  The Syte of Vincenzo Nastro
+  </div>
+<div>
+
+  <div class ="element">
+
+  <img class="photo" src="{{manga.photo.url}}"/>
+<div class = "des">
+  Name:  {{manga.name}} </br>
+  Author:  {{manga.author}}</br>
+  Year Release:  {{manga.year_release}}</br>
+  Genre:  {{manga.genre}} </br>
+  Judgment:  {{manga.vote}}</br>
+  Status:  {{manga.status}}</br>
+</div>
+
+
+
+</div>
+<div>
+<p>{{manga.description}}</p>
+</div>
+</body>
+</html>

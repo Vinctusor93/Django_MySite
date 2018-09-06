@@ -1,7 +1,7 @@
 {% load staticfiles %}
 <html>
 <head>
-  <link rel ="stylesheet" href ="{% static 'blog/css/post_details.css' %}">
+  <link rel ="stylesheet" href ="{% static 'css/post_details.css' %}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -16,19 +16,21 @@
 
   <div class ="element">
 
-  <img class="photo" src="../{{manga.photo}}"/>
+  <img class="photo" src="{{game.photo.url}}"/>
 <div class = "des">
-  Name:{{manga.name}} </br>
-  Author:{{manga.author}}</br>
-  Genre:{{manga.genre}} </br>
-  Judgment:{{manga.vote}}</br>
+  Name:  {{game.name}} </br>
+  Product Factory:  {{game.product_factory}}</br>
+  Year Release:  {{game.year_release}}</br>
+  Genre:  {{game.genre}} </br>
+  Judgment:  {{game.vote}}</br>
+
 </div>
 
 
 
 </div>
 <div>
-<p>{{manga.description}}</p>
+<p>{{game.description}}</p>
 </div>
 </body>
 </html>
