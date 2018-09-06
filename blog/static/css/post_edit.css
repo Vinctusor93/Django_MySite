@@ -1,0 +1,35 @@
+@import url("base.css");
+
+
+
+form{
+  font-size: 1.5em;
+  margin: 2%;
+
+
+
+}
+
+.fieldfumetto{
+  display: block;
+  color: black;
+  margin-bottom: 1%;
+}
+
+#submit{
+  font-size: 1.5em;
+  width: 15%;
+  background-color: orange;
+}
+
+#image{
+  position: absolute;
+  right: 20%;
+   border-style: solid;
+  border-width: 5px;
+  border-color: black;
+  border-radius: 50px;
+  top: 250%;
+  max-width: 15em;
+  max-height: 10em;
+}
