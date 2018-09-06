@@ -13,12 +13,17 @@ def post_list(request):
     manga = Manga.objects.all().order_by('name')
     games = Game.objects.all().order_by('name')
     projects = Project.objects.all()
-    logging.debug("logging")
-    return render(request, "blog/extra_post_list.html", {'profile' : profile , 'mangas' : manga , 'projects' : projects , 'games' : games})
 
-def post_detail(request,name):
+
+    return render(request, "post_list.html", {'profile' : profile , 'mangas' : manga , 'projects' : projects , 'games' : games})
+
+def manga_detail(request,name):
     post = get_object_or_404(Manga,name=name)
-    return render(request,"blog/post_details.html", {'manga':post})
+    return render(request,"manga_details.html", {'manga':post})
+
+def game_detail(request,name):
+    post = get_object_or_404(Game,name=name)
+    return render(request,"game_details.html", {'game':post})
 
 
 def manga_new(request):
@@ -29,7 +34,7 @@ def manga_new(request):
             return redirect('post_list')
     else:
         form = PostForm()
-    return render(request, 'blog/new_manga.html', {'form': form})
+    return render(request, 'new_manga.html', {'form': form})
 
 
 def game_new(request):
@@ -40,7 +45,7 @@ def game_new(request):
             return redirect('post_list')
     else:
         form = GameForm()
-    return render(request, 'blog/new_game.html', {'form': form})
+    return render(request, 'new_game.html', {'form': form})
 
 
 @csrf_exempt

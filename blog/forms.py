@@ -4,12 +4,13 @@ from .models import Manga,Game
 class PostForm(forms.ModelForm):
     class Meta:
         model = Manga
-        fields = ('name', 'author','genre','photo','description','vote')
+        fields = ('name', 'author','year_release','genre','photo','description','status','vote',)
         widgets = {
             'name': forms.TextInput(attrs={'class': 'fieldfumetto'}),
             'author': forms.TextInput(attrs={'class': 'fieldfumetto'}),
             'genre': forms.TextInput(attrs={'class': 'fieldfumetto'}),
-            'photo': forms.FileInput(attrs={'onchange': "load_image(value);"}),
+            'year_release': forms.NumberInput(attrs={'class': 'fieldfumetto'}),
+            'status': forms.Select(attrs={'class': 'fieldfumetto'}),
             'description': forms.Textarea(attrs={'class': 'fieldfumetto'}),
             'vote': forms.Select(attrs={'class': 'fieldfumetto'}),
 
@@ -18,12 +19,12 @@ class PostForm(forms.ModelForm):
 class GameForm(forms.ModelForm):
     class Meta:
         model = Game
-        fields = ('name', 'product_factory','genre','photo','description','vote')
+        fields = ('name', 'product_factory','year_release','genre','photo','description','vote')
         widgets = {
             'name': forms.TextInput(attrs={'class': 'fieldfumetto'}),
             'product_factory': forms.TextInput(attrs={'class': 'fieldfumetto','required':False}),
             'genre': forms.TextInput(attrs={'class': 'fieldfumetto'}),
-            'photo': forms.FileInput(attrs={'onchange': "load_image(value);"}),
+            'year_release': forms.NumberInput(attrs={'class': 'fieldfumetto'}),
             'description': forms.Textarea(attrs={'class': 'fieldfumetto'}),
             'vote': forms.Select(attrs={'class': 'fieldfumetto'}),
 

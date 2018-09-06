@@ -32,6 +32,9 @@
 </ul>
 <div class="tab-content">
 
+<!-- ##################################### Manga Tab ############################################################################### !-->
+
+
     <div id="manga" class="tab-pane fade in active" >
 
       <table>
@@ -47,7 +50,7 @@
 
       {% endif %}
 
-      <td >    <a href="{% url 'post_details' name=manga.name %}">
+      <td >    <a href="{% url 'manga_details' name=manga.name %}">
       <div class ="element">
       <img class="photo" src ="{{manga.photo.url}}">
 
@@ -77,68 +80,111 @@
       </table>
 
     </div>
+
+    <!-- ##################################### End Manga Tab ############################################################################### !-->
+
+    <!-- ##################################### Games Tab ############################################################################### !-->
+
     <div id="games" class="tab-pane fade">
 
 
-      {% block games %}
-      {% endblock %}
+      <table >
+        <tr>
+          <td></td> <td></td> <td></td> <td></td> <td></td>
+        </tr>
+      <tr>
+      {% for game in games %}
+
+      {% if  forloop.counter0|divisibleby:"5"  %}
+      </tr>
+      <tr>
+
+      {% endif %}
+
+      <td >    <a href="{% url 'game_details' name=game.name %}">
+      <div class ="element"  >
+      <img class="photo" src = "{{game.photo.url}}">
+
+      <h2>{{game.name}}</h2>
+
+
+      </div>
+      </a>  </td>
+      {% endfor %}
+
+      {% if   games|length|divisibleby:"5" %}
+      </tr>
+      <tr>
+      <td>    <a href="{% url 'game_new' %}">
+
+      <img class="plus" src = "{% static 'pic_folder/games/plus.png' %}">
+      </a> </td>
+
+      {% else %}
+      <td>    <a href="{% url 'game_new' %}">
+
+      <img class="plus" src = "{% static 'pic_folder/games/plus.png' %}">
+      </a> </td>
+      {% endif %}
+      </tr>
+      </table>
 
     </div>
+
+<!-- ##################################### End Games Tab ############################################################################### !-->
+
+<!-- ##################################### Projects Tab ############################################################################### !-->
 
     <div id="projects" class="tab-pane fade">
-      <h3>Menu 3</h3>
-      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+      <table >
+        <tr>
+          <td></td> <td></td> <td></td> <td></td> <td></td>
+        </tr>
+      <tr>
+      {% for project in projects %}
+
+      {% if  forloop.counter0|divisibleby:"5"  %}
+      </tr>
+      <tr>
+
+      {% endif %}
+
+      <td >    <a href="">
+      <div class ="element"  >
+      <img class="photo" src = "{{project.photo.url}}">
+
+      <h2>{{project.name}}</h2>
+
+
+      </div>
+      </a>  </td>
+      {% endfor %}
+
+      {% if   games|length|divisibleby:"5" %}
+      </tr>
+      <tr>
+      <td>    <a href="">
+
+      <img class="plus" src = "{% static 'pic_folder/projects/plus.png' %}">
+      </a> </td>
+
+      {% else %}
+      <td>    <a href="">
+
+      <img class="plus" src = "{% static 'pic_folder/projects/plus.png' %}">
+      </a> </td>
+      {% endif %}
+      </tr>
+      </table>
     </div>
+
+<!-- ##################################### End Projects Tab ############################################################################### !-->
+
+
   </div>
-</div>
-
-<script>
-
-$('#searchbar').on('submit', function(event){
-    event.preventDefault();
-    console.log("{{mangas}}");  // sanity check
-    create_post();
-});
-
-function create_post() {
-//  var csrf_token = getCookie('csrftoken')
-    console.log("create post is working!"); // sanity check
-  /*  $.ajaxSetup({
-      header: { "X-CSRFToken": getCookie("csrftoken") }
-    });*/
-    jQuery.ajax({
-      type: 'POST',
-      url: '{% url "prova" %}',
-      data: { 'username': 'pappa'},
-      success: function (data) {
-
-        console.log("palle");
-      },
-      error: function (data) {
-
-        console.log("error");
-      },
-    });
-};
-
-function getCookie(c_name)
-{
-    if (document.cookie.length > 0)
-    {
-        c_start = document.cookie.indexOf(c_name + "=");
-        if (c_start != -1)
-        {
-            c_start = c_start + c_name.length + 1;
-            c_end = document.cookie.indexOf(";", c_start);
-            if (c_end == -1) c_end = document.cookie.length;
-            return unescape(document.cookie.substring(c_start,c_end));
-        }
-    }
-    return "";
- }
 
 
-</script>
+
 
 </body>
 </html>
