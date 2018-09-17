@@ -1,27 +1,43 @@
+
 from django.shortcuts import render,get_object_or_404,redirect
-from django.views.decorators.csrf import csrf_exempt
 from .models import Profile,Game,Manga,Project
 from .forms import PostForm, GameForm
+from django.http import HttpResponse
 from django.utils import timezone
-import logging,json
+from django.core import serializers
+import logging
+import json
 
 logging.basicConfig(level=logging.DEBUG)
 
-def post_list(request):
+def post_list(request, manga=None):
 
+    if request.method == 'POST' and request.is_ajax():
+        print(request.POST['type'])
+        results = Manga.objects.filter(vote=request.POST['type'])
+        manga = []
+        for m in results:
+            manga.append(m.name)
+        print(manga)
+        #data = serializers.serialize('json', manga)
+        return HttpResponse(json.dumps({'manga' : manga}), content_type="application/json")
+
+    print("post_list")
     profile = Profile.objects.get(name="Vinctusor")
-    manga = Manga.objects.all().order_by('name')
+    if manga == None:
+        manga = Manga.objects.all().order_by('name')
     games = Game.objects.all().order_by('name')
     projects = Project.objects.all()
+    consoles = Game.objects.values('play_station').distinct()
+    print(manga)
+    return render(request, "post_list.html", {'profile' : profile , 'mangas' : manga , 'projects' : projects , 'games' : games, 'consoles' :consoles})
 
-
-    return render(request, "post_list.html", {'profile' : profile , 'mangas' : manga , 'projects' : projects , 'games' : games})
-
-def manga_detail(request,name):
+def manga_details(request,name):
+    print("almeno qua ci arrivo")
     post = get_object_or_404(Manga,name=name)
     return render(request,"manga_details.html", {'manga':post})
 
-def game_detail(request,name):
+def game_details(request,name):
     post = get_object_or_404(Game,name=name)
     return render(request,"game_details.html", {'game':post})
 
@@ -48,7 +64,37 @@ def game_new(request):
     return render(request, 'new_game.html', {'form': form})
 
 
-@csrf_exempt
-def prova(request):
-        data = {'is_taken': 'porca miseria'}
-        return HttpResponse(json.dumps(data),content_type="application/json")
+
+def create_post(request):
+    print("ajax")
+    manga = Manga.objects.get(name="Naruto")
+    return redirect('post_list', manga=manga)
+
+def update_manga(request, name):
+    instance = get_object_or_404(Manga, name=name)
+    form = PostForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        if(request.POST['name'] != name):
+            Manga.objects.get(name=name).delete()
+        return redirect('manga_details', name=request.POST["name"])
+    return render(request, 'new_manga.html', {'form': form})
+
+def update_game(request, name):
+    instance = get_object_or_404(Game, name=name)
+    form = GameForm(request.POST or None, request.FILES or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        if(request.POST['name'] != name):
+            Game.objects.get(name=name).delete()
+        return redirect('game_details', name=request.POST["name"])
+
+    return render(request, 'new_game.html', {'form': form})
+
+def delete_manga(request, name):
+    Manga.objects.get(name=name).delete()
+    return redirect('post_list')
+
+def delete_game(request, name):
+    Game.objects.get(name=name).delete()
+    return redirect('post_list')

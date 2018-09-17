@@ -19,13 +19,16 @@ class PostForm(forms.ModelForm):
 class GameForm(forms.ModelForm):
     class Meta:
         model = Game
-        fields = ('name', 'product_factory','year_release','genre','photo','description','vote')
+        fields = ('name', 'product_factory','year_release','play_station','genre','photo','description','vote')
         widgets = {
             'name': forms.TextInput(attrs={'class': 'fieldfumetto'}),
             'product_factory': forms.TextInput(attrs={'class': 'fieldfumetto','required':False}),
             'genre': forms.TextInput(attrs={'class': 'fieldfumetto'}),
             'year_release': forms.NumberInput(attrs={'class': 'fieldfumetto'}),
+            'play_station': forms.TextInput(attrs={'class': 'fieldfumetto'}),
             'description': forms.Textarea(attrs={'class': 'fieldfumetto'}),
             'vote': forms.Select(attrs={'class': 'fieldfumetto'}),
-
         }
+
+
+

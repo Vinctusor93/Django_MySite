@@ -32,13 +32,12 @@
 
 .photo{
   position: relative;
+  height : 25em;
   max-width: 15em;
   max-height: 22em;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
   text-align: center;
   margin-top: 2%;
+  border: 2px solid white;
 
 }
 
@@ -47,6 +46,8 @@
   font-family: 'Courgette';
   color: white;
   margin-bottom: 20%;
+  border: solid green 2px;
+
 
 }
 
@@ -78,20 +79,42 @@ li{
 
 .plus{
   position: relative;
-  max-width: 75%;
-  max-height: 15em;
+  float:left;
+  margin-bottom:1em;
+  max-width: 15%;
+  max-height: 3.5em;
+  left:1.5em;
 
 }
 
-td{
-  position: relative;
-  margin-bottom: 3%;
+.td-manga{
+
+border: solid red 2px;
   width: 20%;
   text-align: center;
+  float:left;
 
 }
 
-table{
-  width: 100%;
 
+
+.post-form{
+  color: black;
+  font-size: 1.5em;
+  text-align: center;
+  position: relative;
+
+  top:0.3em;
+}
+
+.settings{
+
+
+    height: 10em;
+    width: 100%;
+}
+
+.judgment{
+width:15%;
+text-align:center;
 }

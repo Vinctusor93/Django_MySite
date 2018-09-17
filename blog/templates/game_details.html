@@ -12,7 +12,7 @@
   <div id="header">
   The Syte of Vincenzo Nastro
   </div>
-<div>
+
 
   <div class ="element">
 
@@ -21,6 +21,7 @@
   Name:  {{game.name}} </br>
   Product Factory:  {{game.product_factory}}</br>
   Year Release:  {{game.year_release}}</br>
+  Console:  {{game.play_station}}</br>
   Genre:  {{game.genre}} </br>
   Judgment:  {{game.vote}}</br>
 
@@ -32,5 +33,19 @@
 <div>
 <p>{{game.description}}</p>
 </div>
+  <button class="button" onclick="popup_delete()" > Delete </button> <a href = "{% url 'update_game' name=game.name %}"><button class="button"> Update </button></a><a href = "{% url 'post_list' %}"><button class="button" > Back </button></a>
+
+  <script>
+  function popup_delete(){
+          var r = confirm("Are you sure to delete this element?");
+          if (r == true) {
+                var url = "{% url 'delete_game' name=game.name %}";
+                document.location.href = url}
+           else {
+                txt = "You pressed Cancel!";}
+  }
+</script>
+
 </body>
+
 </html>
