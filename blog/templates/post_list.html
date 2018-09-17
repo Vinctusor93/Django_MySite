@@ -4,26 +4,27 @@
 <head>
   <link rel ="stylesheet" href ="{% static 'css/post_list.css' %}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Hanalei+Fill" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
- <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Hanalei+Fill" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
 </head>
 <body id="body">
-  <div id="header">
+<div id="header">
 
   The Syte of Vincenzo Nastro
 
 </div>
-  <div id="profile">
-    <img class="img-circle" src = "{% static 'pic_folder/profile/profilo.jpg' %}"/>
-    <div id="description">
-      <h1 id="name" onclick="salve()">{{profile.name}}</h1>
-    <p>{{profile.description}} </p>
-    </div>
+<div id="profile">
+  <img class="img-circle" src = "{% static 'pic_folder/profile/profilo.jpg' %}"/>
+  <div id="description">
+    <h1 id="name">{{profile.name}}</h1>
+    <p>{{profile.description}}</p>
   </div>
+</div>
 
 <ul class="nav nav-pills">
   <li class="active"><a data-toggle="tab" href="#manga" >Manga</a></li>
@@ -32,159 +33,219 @@
 </ul>
 <div class="tab-content">
 
-<!-- ##################################### Manga Tab ############################################################################### !-->
+  <!-- ##################################### Manga Tab ############################################################################### !-->
 
 
-    <div id="manga" class="tab-pane fade in active" >
+  <div id="manga" class="tab-pane fade in active" >
+    <div class="settings">
 
-      <table>
-      <tr>
-      <td></td> <td></td> <td></td> <td></td> <td></td>
-      </tr>
-      <tr>
-      {% for manga in mangas %}
+      <form method="POST" class="post-form">
+          <a href="{% url 'manga_new' %}">
 
-      {% if  forloop.counter0|divisibleby:"5"  %}
-      </tr>
-      <tr>
+          <img class="plus" src = "{% static 'pic_folder/games/plus.png' %}">
+        </a>
+      <select class="judgment" onchange="s(value)" >
 
-      {% endif %}
+        <option selected> All </option>
+        <option> Excellent </option>
+        <option> Good </option>
+        <option  > Normal </option>
+        <option> Ugly </option>
+        <option> Horrible </option>
+      </select>
 
-      <td >    <a href="{% url 'manga_details' name=manga.name %}">
-      <div class ="element">
-      <img class="photo" src ="{{manga.photo.url}}">
-
-      <h2>{{manga.name}}</h2>
-
-
-      </div>
-      </a>  </td>
-      {% endfor %}
-
-
-      {% if   mangas|length|divisibleby:"5" %}
-      </tr>
-      <tr>
-      <td>    <a href="{% url 'manga_new' %}">
-
-      <img class="plus" src = "{% static 'pic_folder/manga/plus.png' %}">
-      </a> </td>
-
-      {% else %}
-      <td>    <a href="{% url 'manga_new' %}">
-
-      <img class="plus" src = "{% static 'pic_folder/manga/plus.png' %}">
-      </a> </td>
-      {% endif %}
-      </tr>
-      </table>
-
+    </form>
     </div>
 
-    <!-- ##################################### End Manga Tab ############################################################################### !-->
 
-    <!-- ##################################### Games Tab ############################################################################### !-->
-
-    <div id="games" class="tab-pane fade">
-
-
-      <table >
-        <tr>
-          <td></td> <td></td> <td></td> <td></td> <td></td>
-        </tr>
+    <!--<table id="table_manga">
       <tr>
-      {% for game in games %}
+        <td></td> <td></td> <td></td> <td></td> <td></td>
+      </tr>
+      <tr>
+        {% for manga in mangas %}
 
-      {% if  forloop.counter0|divisibleby:"5"  %}
+        {% if  forloop.counter0|divisibleby:"5"  %}
       </tr>
       <tr>
 
-      {% endif %}
+        {% endif %}
 
-      <td >    <a href="{% url 'game_details' name=game.name %}">
-      <div class ="element"  >
-      <img class="photo" src = "{{game.photo.url}}">
+        <td id="{{manga.name}}" class="td-manga">    <a href="{% url 'manga_details' name=manga.name %}">
+          <div class ="element">
+            <img class="photo" src ="{{manga.photo.url}}">
 
-      <h2>{{game.name}}</h2>
+            <h2>{{manga.name}}</h2>
 
 
-      </div>
-      </a>  </td>
-      {% endfor %}
-
-      {% if   games|length|divisibleby:"5" %}
+          </div>
+        </a>  </td>
+        {% endfor %}
       </tr>
-      <tr>
-      <td>    <a href="{% url 'game_new' %}">
+    </table> !-->
 
-      <img class="plus" src = "{% static 'pic_folder/games/plus.png' %}">
-      </a> </td>
-
-      {% else %}
-      <td>    <a href="{% url 'game_new' %}">
-
-      <img class="plus" src = "{% static 'pic_folder/games/plus.png' %}">
-      </a> </td>
-      {% endif %}
-      </tr>
-      </table>
-
-    </div>
-
-<!-- ##################################### End Games Tab ############################################################################### !-->
-
-<!-- ##################################### Projects Tab ############################################################################### !-->
-
-    <div id="projects" class="tab-pane fade">
-      <table >
-        <tr>
-          <td></td> <td></td> <td></td> <td></td> <td></td>
-        </tr>
-      <tr>
-      {% for project in projects %}
-
-      {% if  forloop.counter0|divisibleby:"5"  %}
-      </tr>
-      <tr>
-
-      {% endif %}
-
-      <td >    <a href="">
-      <div class ="element"  >
-      <img class="photo" src = "{{project.photo.url}}">
-
-      <h2>{{project.name}}</h2>
+            {% for manga in mangas %}
 
 
-      </div>
-      </a>  </td>
-      {% endfor %}
 
-      {% if   games|length|divisibleby:"5" %}
-      </tr>
-      <tr>
-      <td>    <a href="">
+        <div id="{{manga.name}}" class="td-manga">    <a href="{% url 'manga_details' name=manga.name %}">
+          <div class ="element">
+            <img class="photo" src ="{{manga.photo.url}}">
 
-      <img class="plus" src = "{% static 'pic_folder/projects/plus.png' %}">
-      </a> </td>
+            <h2>{{manga.name}}</h2>
 
-      {% else %}
-      <td>    <a href="">
 
-      <img class="plus" src = "{% static 'pic_folder/projects/plus.png' %}">
-      </a> </td>
-      {% endif %}
-      </tr>
-      </table>
-    </div>
-
-<!-- ##################################### End Projects Tab ############################################################################### !-->
-
+          </div>
+        </a>  </div>
+        {% endfor %}
 
   </div>
 
+  <!-- ##################################### End Manga Tab ############################################################################### !-->
+
+  <!-- ##################################### Games Tab ############################################################################### !-->
+
+  <div id="games" class="tab-pane fade">
+
+    <div class="settings">
+
+      <form method="POST" class="post-form">
+          <a href="{% url 'game_new' %}">
+
+          <img class="plus" src = "{% static 'pic_folder/games/plus.png' %}">
+        </a>
+      <select class="judgment" onchange="search(value)" >
+            {% for console in consoles %}
+        <option> {{console.play_station}} </option>
+          {% endfor %}
+      </select>
+
+    </form>
+    </div>
+
+    <table >
+      <tr>
+        <td></td> <td></td> <td></td> <td></td> <td></td>
+      </tr>
+      <tr>
+        {% for game in games %}
+
+        {% if  forloop.counter0|divisibleby:"5"  %}
+      </tr>
+      <tr>
+
+        {% endif %}
+
+        <td >    <a href="{% url 'game_details' name=game.name %}">
+          <div class ="element"  >
+            <img class="photo" src = "{{game.photo.url}}">
+
+            <h2>{{game.name}}</h2>
 
 
+          </div>
+        </a>  </td>
+        {% endfor %}
+
+
+      </tr>
+    </table>
+
+  </div>
+
+  <!-- ##################################### End Games Tab ############################################################################### !-->
+
+  <!-- ##################################### Projects Tab ############################################################################### !-->
+
+  <div id="projects" class="tab-pane fade">
+    <table >
+      <tr>
+        <td></td> <td></td> <td></td> <td></td> <td></td>
+      </tr>
+      <tr>
+        {% for project in projects %}
+
+        {% if  forloop.counter0|divisibleby:"5"  %}
+      </tr>
+      <tr>
+
+        {% endif %}
+
+        <td >    <a href="">
+          <div class ="element"  >
+            <img class="photo" src = "{{project.photo.url}}">
+
+            <h2>{{project.name}}</h2>
+
+
+          </div>
+        </a>  </td>
+        {% endfor %}
+
+        {% if   games|length|divisibleby:"5" %}
+      </tr>
+      <tr>
+        <td>    <a href="">
+
+          <img class="plus"  src = "{% static 'pic_folder/projects/plus.png' %}">
+        </a> </td>
+
+        {% else %}
+        <td>    <a href="">
+
+          <img class="plus"  src = "{% static 'pic_folder/projects/plus.png' %}">
+        </a> </td>
+        {% endif %}
+      </tr>
+    </table>
+  </div>
+
+  <!-- ##################################### End Projects Tab ############################################################################### !-->
+
+</div>
+<script>
+
+
+  function s(value) {
+
+    console.log("create post is working!"+value)
+    $.ajaxSetup({
+    headers: { "X-CSRFToken": '{{ csrf_token }}' }
+    });
+    $.ajax({
+        url : location.href, // the endpoint
+        type : "POST", // http method
+        data : { 'type' : value }, // data sent with the post request
+        success : function(json) {  // handle a successful response
+        print(json)
+
+            console.log(json['manga']); // another sanity check
+            td_manga = document.getElementsByClassName("td-manga");
+
+            for(var index=0;index<td_manga.length;index++){
+
+              console.log("confronto "+td_manga[index].id+" e "+ json + "e il risultato e "+ json['manga'].includes(td_manga[index].id));
+              if(!json['manga'].includes(td_manga[index].id))
+                  td_manga[index].style.display = 'none';
+              else
+                  td_manga[index].style.display = 'initial';
+
+            }
+
+         //   document.getElementById("manga").getElementsByClassName("plus")[0].style.display='none';
+            console.log(td_manga)
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+};
+
+</script>
 
 </body>
 </html>
