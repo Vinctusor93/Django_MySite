@@ -3,38 +3,38 @@
 <head>
   <link rel ="stylesheet" href ="{% static 'css/post_details.css' %}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="/media/web/jquery.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Hanalei+Fill" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/media/web/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Hanalei+Fill" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
 </head>
 <body id="body">
 
-  <div id="header">
+<div id="header">
   The Syte of Vincenzo Nastro
-  </div>
+</div>
 <div>
 
   <div class ="element">
 
-  <img class="photo" src="{{manga.photo.url}}"/>
-<div class = "des">
-  Name:  {{manga.name}} </br>
-  Author:  {{manga.author}}</br>
-  Year Release:  {{manga.year_release}}</br>
-  Genre:  {{manga.genre}} </br>
-  Judgment:  {{manga.vote}}</br>
-  Status:  {{manga.status}}</br>
-</div>
+    <img class="photo" src="{{manga.photo.url}}"/>
+    <div class = "des">
+      Name:  {{manga.name}} </br>
+      Author:  {{manga.author}}</br>
+      Year Release:  {{manga.year_release}}</br>
+      Genre:  {{manga.genre}} </br>
+      Judgment:  {{manga.vote}}</br>
+      Status:  {{manga.status}}</br>
+    </div>
 
 
 
-</div>
-<div>
-<p>{{manga.description}}</p>
-</div>
-<button class="button" onclick="popup_delete()" > Delete </button> <a href = "{% url 'update_manga' name=manga.name %}"><button class="button"> Update </button></a><a href = "{% url 'post_list' %}"><button class="button" > Back </button></a>
+  </div>
+  <div>
+    <p>{{manga.description}}</p>
+  </div>
+  <button class="button" onclick="popup_delete()" > Delete </button> <a href = "{% url 'update_manga' name=manga.name %}"><button class="button"> Update </button></a><a href = "{% url 'post_list' %}"><button class="button" > Back </button></a>
 </body>
 
 <script>

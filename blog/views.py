@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.DEBUG)
 def post_list(request, manga=None):
 
     if request.method == 'POST' and request.is_ajax():
-#############################################################################   Manga Ajax Request #######################################################################
+        #############################################################################   Manga Ajax Request #######################################################################
         if request.POST['objects'] == 'manga':
             if request.POST['type'] == 'All':
                 results = Manga.objects.all().order_by('name')
@@ -23,7 +23,7 @@ def post_list(request, manga=None):
             for m in results:
                 manga.append(m.name)
             return HttpResponse(json.dumps({'manga': manga,'type' : 'Manga'}), content_type="application/json")
-#############################################################################   Games Ajax Request #######################################################################
+        #############################################################################   Games Ajax Request #######################################################################
         elif request.POST['objects'] == 'game':
             if request.POST['type'] == 'All':
                 results = Game.objects.all().order_by('name')
@@ -34,20 +34,21 @@ def post_list(request, manga=None):
                 games.append(m.name)
             print(games)
             return HttpResponse(json.dumps({'game': games, 'type' : 'Game'}), content_type="application/json")
-    print("post_list")
+        #############################################################################  End Ajax Requests ###########################################################################
+
     profile = Profile.objects.get(name="Vinctusor")
     if manga == None:
         manga = Manga.objects.all().order_by('name')
     games = Game.objects.all().order_by('name')
     projects = Project.objects.all()
     consoles = Game.objects.values('play_station').distinct()
-    print(manga)
     return render(request, "post_list.html", {'profile' : profile , 'mangas' : manga , 'projects' : projects , 'games' : games, 'consoles' :consoles})
 
+
 def manga_details(request,name):
-    print("almeno qua ci arrivo")
     post = get_object_or_404(Manga,name=name)
     return render(request,"manga_details.html", {'manga':post})
+
 
 def game_details(request,name):
     post = get_object_or_404(Game,name=name)
@@ -76,11 +77,11 @@ def game_new(request):
     return render(request, 'new_game.html', {'form': form})
 
 
-
 def create_post(request):
     print("ajax")
     manga = Manga.objects.get(name="Naruto")
     return redirect('post_list', manga=manga)
+
 
 def update_manga(request, name):
     instance = get_object_or_404(Manga, name=name)
@@ -91,6 +92,7 @@ def update_manga(request, name):
             Manga.objects.get(name=name).delete()
         return redirect('manga_details', name=request.POST["name"])
     return render(request, 'new_manga.html', {'form': form})
+
 
 def update_game(request, name):
     instance = get_object_or_404(Game, name=name)
@@ -103,9 +105,11 @@ def update_game(request, name):
 
     return render(request, 'new_game.html', {'form': form})
 
+
 def delete_manga(request, name):
     Manga.objects.get(name=name).delete()
     return redirect('post_list')
+
 
 def delete_game(request, name):
     Game.objects.get(name=name).delete()

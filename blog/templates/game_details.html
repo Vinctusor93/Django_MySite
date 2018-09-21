@@ -3,39 +3,39 @@
 <head>
   <link rel ="stylesheet" href ="{% static 'css/post_details.css' %}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Hanalei+Fill" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Hanalei+Fill" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
 </head>
 <body id="body">
-  <div id="header">
+<div id="header">
   The Syte of Vincenzo Nastro
-  </div>
+</div>
 
 
-  <div class ="element">
+<div class ="element">
 
   <img class="photo" src="{{game.photo.url}}"/>
-<div class = "des">
-  Name:  {{game.name}} </br>
-  Product Factory:  {{game.product_factory}}</br>
-  Year Release:  {{game.year_release}}</br>
-  Console:  {{game.play_station}}</br>
-  Genre:  {{game.genre}} </br>
-  Judgment:  {{game.vote}}</br>
+  <div class = "des">
+    Name:  {{game.name}} </br>
+    Product Factory:  {{game.product_factory}}</br>
+    Year Release:  {{game.year_release}}</br>
+    Console:  {{game.play_station}}</br>
+    Genre:  {{game.genre}} </br>
+    Judgment:  {{game.vote}}</br>
 
-</div>
+  </div>
 
 
 
 </div>
 <div>
-<p>{{game.description}}</p>
+  <p>{{game.description}}</p>
 </div>
-  <button class="button" onclick="popup_delete()" > Delete </button> <a href = "{% url 'update_game' name=game.name %}"><button class="button"> Update </button></a><a href = "{% url 'post_list' %}"><button class="button" > Back </button></a>
+<button class="button" onclick="popup_delete()" > Delete </button> <a href = "{% url 'update_game' name=game.name %}"><button class="button"> Update </button></a><a href = "{% url 'post_list' %}"><button class="button" > Back </button></a>
 
-  <script>
+<script>
   function popup_delete(){
           var r = confirm("Are you sure to delete this element?");
           if (r == true) {
