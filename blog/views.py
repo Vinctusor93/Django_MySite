@@ -13,15 +13,27 @@ logging.basicConfig(level=logging.DEBUG)
 def post_list(request, manga=None):
 
     if request.method == 'POST' and request.is_ajax():
-        print(request.POST['type'])
-        results = Manga.objects.filter(vote=request.POST['type'])
-        manga = []
-        for m in results:
-            manga.append(m.name)
-        print(manga)
-        #data = serializers.serialize('json', manga)
-        return HttpResponse(json.dumps({'manga' : manga}), content_type="application/json")
-
+#############################################################################   Manga Ajax Request #######################################################################
+        if request.POST['objects'] == 'manga':
+            if request.POST['type'] == 'All':
+                results = Manga.objects.all().order_by('name')
+            else:
+                results = Manga.objects.filter(vote=request.POST['type'])
+            manga = []
+            for m in results:
+                manga.append(m.name)
+            return HttpResponse(json.dumps({'manga': manga,'type' : 'Manga'}), content_type="application/json")
+#############################################################################   Games Ajax Request #######################################################################
+        elif request.POST['objects'] == 'game':
+            if request.POST['type'] == 'All':
+                results = Game.objects.all().order_by('name')
+            else:
+                results = Game.objects.filter(play_station=request.POST['type'])
+            games = []
+            for m in results:
+                games.append(m.name)
+            print(games)
+            return HttpResponse(json.dumps({'game': games, 'type' : 'Game'}), content_type="application/json")
     print("post_list")
     profile = Profile.objects.get(name="Vinctusor")
     if manga == None:

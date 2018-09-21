@@ -46,7 +46,7 @@
   font-family: 'Courgette';
   color: white;
   margin-bottom: 20%;
-  border: solid green 2px;
+
 
 
 }
@@ -88,15 +88,21 @@ li{
 }
 
 .td-manga{
+height : 33em;
 
-border: solid red 2px;
   width: 20%;
   text-align: center;
   float:left;
 
 }
 
+.td-games{
+height : 33em;
 
+  width: 20%;
+  text-align: center;
+  float:left;
+}
 
 .post-form{
   color: black;

@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+
+
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Hanalei+Fill" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
@@ -39,12 +41,12 @@
   <div id="manga" class="tab-pane fade in active" >
     <div class="settings">
 
-      <form method="POST" class="post-form">
+      <form method="POST" class="post-form"> {% csrf_token %}
           <a href="{% url 'manga_new' %}">
 
           <img class="plus" src = "{% static 'pic_folder/games/plus.png' %}">
         </a>
-      <select class="judgment" onchange="s(value)" >
+      <select class="judgment" onchange="s(value,'manga')" >
 
         <option selected> All </option>
         <option> Excellent </option>
@@ -109,12 +111,13 @@
 
     <div class="settings">
 
-      <form method="POST" class="post-form">
+      <form method="POST" class="post-form"> {% csrf_token %}
           <a href="{% url 'game_new' %}">
 
           <img class="plus" src = "{% static 'pic_folder/games/plus.png' %}">
         </a>
-      <select class="judgment" onchange="search(value)" >
+      <select class="judgment" onchange="s(value,'game')" >
+        <option selected >All</option>
             {% for console in consoles %}
         <option> {{console.play_station}} </option>
           {% endfor %}
@@ -123,20 +126,12 @@
     </form>
     </div>
 
-    <table >
-      <tr>
-        <td></td> <td></td> <td></td> <td></td> <td></td>
-      </tr>
-      <tr>
+
         {% for game in games %}
 
-        {% if  forloop.counter0|divisibleby:"5"  %}
-      </tr>
-      <tr>
 
-        {% endif %}
 
-        <td >    <a href="{% url 'game_details' name=game.name %}">
+        <div  id="{{game.name}}" class="td-games" >    <a href="{% url 'game_details' name=game.name %}">
           <div class ="element"  >
             <img class="photo" src = "{{game.photo.url}}">
 
@@ -144,12 +139,11 @@
 
 
           </div>
-        </a>  </td>
+        </a>  </div>
         {% endfor %}
 
 
-      </tr>
-    </table>
+
 
   </div>
 
@@ -203,49 +197,7 @@
   <!-- ##################################### End Projects Tab ############################################################################### !-->
 
 </div>
-<script>
-
-
-  function s(value) {
-
-    console.log("create post is working!"+value)
-    $.ajaxSetup({
-    headers: { "X-CSRFToken": '{{ csrf_token }}' }
-    });
-    $.ajax({
-        url : location.href, // the endpoint
-        type : "POST", // http method
-        data : { 'type' : value }, // data sent with the post request
-        success : function(json) {  // handle a successful response
-        print(json)
-
-            console.log(json['manga']); // another sanity check
-            td_manga = document.getElementsByClassName("td-manga");
-
-            for(var index=0;index<td_manga.length;index++){
-
-              console.log("confronto "+td_manga[index].id+" e "+ json + "e il risultato e "+ json['manga'].includes(td_manga[index].id));
-              if(!json['manga'].includes(td_manga[index].id))
-                  td_manga[index].style.display = 'none';
-              else
-                  td_manga[index].style.display = 'initial';
-
-            }
-
-         //   document.getElementById("manga").getElementsByClassName("plus")[0].style.display='none';
-            console.log(td_manga)
-        },
-
-        // handle a non-successful response
-        error : function(xhr,errmsg,err) {
-            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-        }
-    });
-};
-
-</script>
+ <script src="{% static 'javascript/search.js' %}" data-parameter_1="{{csrf_token}}" type="text/javascript"></script>
 
 </body>
 </html>
